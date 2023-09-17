@@ -4,15 +4,15 @@ def f(t):
 
 
 def ternarySearch(l, r):
-    t = (r + l) / 2
-    if r - l < eps * max(1, t):
-        return t
+    while r - l > eps * min(1, (r + l) / 2):
 
-    a, b = (2 * l + r) / 3, (l + 2 * r) / 3
-    if f(a) < f(b):
-        return ternarySearch(l, b)
-    else:
-        return ternarySearch(a, r)
+        a, b = (2 * l + r) / 3, (l + 2 * r) / 3
+        if f(a) < f(b):
+            r = b  # return ternarySearch(l, b)
+        else:
+            l = a   # return ternarySearch(a, r)
+
+    return (r + l) / 2
 
 
 n = int(input())
