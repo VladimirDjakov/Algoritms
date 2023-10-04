@@ -1,4 +1,4 @@
-def is_connected(graph, critical_height, node=0, visited=None):
+def is_connected(graph, water_height, node=0, visited=None):
     # check the graph is connected or not (depth-first search)
     if visited is None:
         visited = set()
@@ -7,21 +7,20 @@ def is_connected(graph, critical_height, node=0, visited=None):
     for neighbor, way_height in enumerate(graph[node]):
         if neighbor in visited:
             continue
-        if way_height > critical_height:
-            is_connected(graph, critical_height, neighbor, visited)
+        if way_height > water_height:
+            is_connected(graph, water_height, neighbor, visited)
 
     return len(graph) == len(visited)
 
 
 def binary_search(graph, heights):
-    #  is_connected(heights) ~ [1, 1, 1, 0] need to find x := the first left zero,
+    #  is_connected(heights) ~ [1, 1, 1, 0, 0] need to find x := the first left zero,
     #  invariant: if is_connected(graph, m := (l+r) // 2) --> x in (m, r], else x in (l, m]
-    left, right = 0, len(heights) - 1
-
+    left, right = -1, len(heights) - 1
     while right - left > 1:
+
         mid = (left + right) // 2
-        critical_height = heights[mid]
-        if is_connected(graph, critical_height):
+        if is_connected(graph, water_height=heights[mid]):  # f(l) >= f(m)
             left = mid
         else:
             right = mid
