@@ -1,1 +1,6 @@
 /.idea
+*/.idea
+/venv
+*/venv
+*.ipynb
+*/*.ipynb
